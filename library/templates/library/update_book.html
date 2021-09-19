@@ -1,0 +1,90 @@
+{% extends 'library/base.html' %}
+{% load static%}
+{% block title%}Update Book{% endblock title%}
+
+{% block extra_css %}
+<style type="text/css" media="all">
+  body{
+    font-family: 'Lora',serif;
+  }
+</style>
+{% endblock extra_css %}
+{% block content%}
+
+
+  
+
+<div class="text-center text">
+  
+  
+       <div class="form-group container">
+     <input type="text" name="bokk_search" class="form-control mt-2" id="book_searched" list="search_results" placeholder="Search Books for update"/>
+     <div class="">
+       <button type="button" class="btn btn-outline-warning  mt-2" id="search_book">Search Book</button>
+     </div>
+   
+   
+   <datalist id="search_results">
+     
+   </datalist>
+  
+  <main class="form-signin  container" id="update_form">
+    <form id="updatebookForm">
+      {% csrf_token %}
+      <img class="mb-4" src="{% static 'book_image.jpg' %}" width="72" height="57">
+      <h1 class="h3 mb-3 fw-normal">Update Books</h1>
+      <div class="alert alert-info" id="statusMsg">
+        Update Books Data..
+      </div>
+
+      <div class="form-floating mt-2">
+        <input type="text" class="form-control" id="book_name" placeholder="book name">
+        <label for="floatingInput">Book Name</label>
+      </div>
+  <input type="hidden" name="book_update_id" id="book_update_id" />
+      <div class="form-floating mt-2">
+        <input type="text" class="form-control" id="author" placeholder="book Author">
+        <label for="floatingInput">Author</label>
+      </div>
+
+
+      <div class="form-floating mt-2">
+        <select class="form-select form-floating" id="category_value" aria-label="select">
+      {% for cat in categories %} 
+        <option class="cat_options" value="{{cat.id}}">{{cat.title}}</option>
+      {% endfor %} 
+        </select>
+      </div>
+ 
+        <div class="ml-2">
+          <button class="mt-2  w-100 btn btn-outline-success" type="button" id="update_book">update book</button>
+        </div>
+      
+
+
+    </form>
+  </main>
+</div>
+{% endblock content%}
+{% block extra_js %}
+<script src="{% static 'js/update_book.js' %}"></script>
+<script>
+
+allBooks();
+
+
+
+$("#update_form").hide();
+ 
+$("#search_book").click(function(){
+  searchBook()
+  
+})
+
+$("#update_book").click(function(){
+  updateBook("{{csrf_token}}")
+})
+
+
+</script>
+{% endblock extra_js %}

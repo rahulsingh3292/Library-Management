@@ -1,0 +1,95 @@
+{% extends 'library/base.html' %}
+{% load static%}
+{% block title%}Login{% endblock title%}
+
+
+{% block content%}
+
+<div class="text-center text">
+<main class="form-signin container">
+  <form id="loginForm">
+    {% csrf_token %}
+    <img class="mb-4" src="{% static 'book_image.jpg' %}"  width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">Login</h1>
+    <div class="alert" id="statusMsgs">
+    </div>
+    
+ 
+
+    <div class="form-floating mt-2">
+      <input type="email" class="form-control" id="email" placeholder="name@example.com">
+      <label for="floatingInput">Email address</label>
+    </div>
+    
+     
+    <input type="hidden" name="next" id="next"  />
+    
+    
+    <div class="form-floating mt-2">
+      <input type="password" class="form-control text" id="password" placeholder="Password">
+      <label for="floatingPassword">Password</label>
+    </div>
+    
+ 
+
+
+    <button class="mt-2  w-100 btn btn-lg btn-outline-success" type="button" id="login">SignIn</button>
+
+  </form>
+</main>
+</div>
+{% endblock content%}
+{% block extra_js %}
+<script>
+const params = new URLSearchParams(window.location.search)
+$("#next").val(params.get("next"));
+
+$("#login").click(function (){
+  let email = $("#email").val();
+  let next = $("#next").val();
+  let password = $("#password").val();
+  let csrf = $("input[name='csrfmiddlewaretoken']").val();
+  
+  if(email== ""){
+    $("#statusMsgs").addClass("alert-danger").text("Email is Required")
+    return 
+  }
+  
+  if(password == ""){
+    $("#statusMsgs").addClass("text-danger").text("Password is Required")
+    return
+  }
+  
+  let loginData = {
+    "csrfmiddlewaretoken":csrf,"password":password,"email":email,"next":next
+  }
+  
+  
+  $("#statusMsgs").removeClass("alert-danger").addClass("alert-info").text("Authenticating...")
+   
+    $.ajax({
+    url : "/accounts/login/",
+    method : "POST",
+    data : loginData,
+    success : function(resp){
+
+      if(resp["redirect_to"]){
+         $("#statusMsgs").removeClass("alert-info").addClass("alert-success").text("Loggged in success");
+         window.location.replace(`${resp["redirect_to"]}`)
+        return 
+      }
+      if(resp["login"]){
+        $("#statusMsgs").removeClass("alert-info").addClass("alert-success").text('Loggged in success')
+        window.location.replace("/")
+      
+        
+      }else{
+        $("#statusMsgs").removeClass("alert-info").addClass("alert-danger").text("Invalid Email or password")
+      }
+      
+      
+    }
+  })
+})
+</script>
+{% endblock extra_js %}

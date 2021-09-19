@@ -1,0 +1,153 @@
+{% extends 'library/base.html' %}
+{% block title%}Home{% endblock title%}
+
+{% block extra_css%}
+
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,700&display=swap" rel="stylesheet" >
+
+<style>
+  body {
+    font-family: 'Lato', sans-serif;
+    background-color: #b1babc;
+  }
+  .wrapper {
+    padding-top: 120px;
+  }
+  .card-img-top {
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+  }
+  .card-body {
+    text-align: center;
+    box-shadow: 0px 15px 15px -8px rgba(0,0,0,0.5)
+  }
+  .card-body h6 {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: deeppink;
+  }
+  .card-title {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 24px;
+  }
+
+  .socials a {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 50%;
+    margin: 0 5px;
+  }
+  .socials a i {
+    color: #fff;
+    padding: 12px 0;
+  }
+
+  .socials a:nth-child(1) {
+    background: #3b5998;
+  }
+
+  .socials a:nth-child(2) {
+    background: #ff0000;
+  }
+
+  .socials a:nth-child(3) {
+    background: #007bb5;
+  }
+
+  .socials a:nth-child(4) {
+    background: #ea4c89;
+  }
+
+@media (max-width: 800px) {
+    .mx-30 {
+      margin-bottom: 30px;
+    }
+  }
+</style>
+{% endblock extra_css%}
+{% block content%}
+
+<div class="container mt-4">
+  <div class="alert">
+    
+  </div>
+</div>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+      
+      {% for book in books %}
+      <div class="col-md-6 col-lg-4 mt-3">
+        <div class="card mx-30">
+          <img src="{{book.image.url}}" class="card-img-top" alt="error">
+          <div class="card-body">
+            <input type="hidden" name="book-id" id="book-id" value="{{book.id}}" />
+            <h5 class="card-title">
+              {{book.book_name}}</h5>
+            <h6>
+              {{book.author}}</h6>
+            <p class="card-text">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse amet repellat, eaque aliquid similique eius alias facilis quisquam, ipsa dolor.
+            </p>
+            
+            <div class="socials">
+               {% csrf_token %}
+              {% if request.user.is_authenticated %}
+             {% if book.available %}
+             <button type="button" class="btn btn-warning borrow" id="borrow">Borrow Book</button>
+             {% else %}
+                <button type="button" class="btn btn-primary" disabled="true">Not available</button>
+             {% endif %}
+        {% else %}
+          <button type="button" class="btn btn-primary login">Borrow Book</button>
+        {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {% endfor %}
+   
+   
+      
+    </div>
+  </div>
+</div>
+
+{% endblock content%}
+
+
+
+{% block extra_js %}
+<script>
+$(".login").click(function(){
+  window.location.href="/accounts/login/"
+})
+$(".borrow").click(function(){
+  let id = $(this).parent().parent().find("#book-id").val();
+ 
+  let csrf = $("input[name=csrfmiddlewaretoken]").val();
+  $.ajax({
+    url : "/",
+    method : "POST",
+    data : {
+      "book_id":id,
+      "csrfmiddlewaretoken":csrf
+    },
+    success : function(resp){
+          $(window).scrollTop(0);
+     $(".alert").addClass("alert-success").text("Request Submitted.. Book will Add in book list within few hours.. we will notify on your Email.");
+ 
+     setTimeout(function(){
+       $(".alert").hide();
+       window.location.href="/library/my_books/"
+     },3000)
+     
+    }
+  })
+  
+})
+</script>
+{% endblock extra_js %}
