@@ -14,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-z_itb!$i%xbnrvvxbwrvfjg0qxn9quik8p(rm*3r%(0p#@^ho_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = "False"
 
 ALLOWED_HOSTS = ["blogprojectbyrahul.herokuapp.com"]
 
@@ -115,7 +115,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,"staticfiles")
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -129,4 +129,4 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "rahulsingh32929@gmail.com"
-EMAIL_HOST_PASSWORD = "####"
+EMAIL_HOST_PASSWORD = "r1a2h3u4l4"

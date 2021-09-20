@@ -13,7 +13,7 @@ class Book(models.Model):
   author = models.CharField(max_length=200)
   category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name="cats")
   available = models.BooleanField(default=True)
-  image = models.ImageField(upload_to="book_images",blank=True, default="book_image.jpg")
+  image = models.ImageField(upload_to="/book_images",blank=True, default="book_image.jpg")
   added_on = models.DateTimeField(auto_now_add=True, blank=True)
   
   def __str__(self):
