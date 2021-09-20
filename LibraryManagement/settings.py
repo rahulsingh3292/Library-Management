@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-z_itb!$i%xbnrvvxbwrvfjg0qxn9quik8p(rm*3r%(0p#@^ho_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["libraryappnew.herokuapp.com"]
+ALLOWED_HOSTS = [blogprojectbyrahul.herokuapp.com"]
 
 
 # Application definition
