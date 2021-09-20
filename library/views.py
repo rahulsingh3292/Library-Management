@@ -113,7 +113,7 @@ class AddCategoryView(LoginRequiredMixin,CreateView):
   
   def dispatch(self,request,*args,**kwargs):
     if not self.template_name:
-      return redirect("update_book")
+      return redirect("addbook")
     return super().dispatch(request,*args,**kwargs)
   
   

@@ -10,7 +10,7 @@ def encode_email(email):
   
 def registration_success(email):
   from_mail = settings.EMAIL_HOST_USER
-  body = f"Your Book-Library Account is Created successfully. please Activate account your Account -  http://localhost:8000/accounts/activate?email={encode_email(email)}"
+  body = f"Your Book-Library Account is Created successfully. please Activate account your Account -  https://blogprojectbyrahul.herokuapp.com/accounts/activate?email={encode_email(email)}"
   subject = "Account Activation"
   return send_mail(subject,body,from_mail,[email])
 
@@ -28,7 +28,7 @@ def account_activated(email,name):
 
 def borrow_success(email,name,book):
   from_mail = settings.EMAIL_HOST_USER
-  body = f"Hey {name} '{book}' is Added in your List. Plaese return book in few days. http://localhost:8000/"
+  body = f"Hey {name} Book '{book}' is Added in your List. Plaese return book in few days. https://blogprojectbyrahul.herokuapp.com/Library/my_books/"
   subject = "Borrow Book Success"
   return send_mail(subject,body,from_mail,[email])
 
