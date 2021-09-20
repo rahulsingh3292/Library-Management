@@ -86,7 +86,7 @@
    
       <div class="col-md-6 col-lg-4 mt-3" id="book{{book.id}}">
         <div class="card mx-30">
-          <img src="{{book.image.url}}" class="card-img-top" alt="error">
+          <img src="{% static 'book_image.jpg' %}" class="card-img-top" alt="error">
           <div class="card-body">
             <input type="hidden" name="book-id" id="book-id" value="{{book.id}}" />
             <h5 class="card-title">
