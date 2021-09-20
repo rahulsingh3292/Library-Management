@@ -1,5 +1,5 @@
 {% extends 'library/base.html' %}
-{% load static%}
+{% load static %}
 {% block title%}Update Book{% endblock title%}
 
 {% block extra_css %}
@@ -31,7 +31,7 @@
   <main class="form-signin  container" id="update_form">
     <form id="updatebookForm">
       {% csrf_token %}
-      <img class="mb-4" src="{% static 'book_image.jpg' %}" width="72" height="57">
+      <img class="mb-4" src="{% static  'book_image.jpg' %}" width="72" height="57">
       <h1 class="h3 mb-3 fw-normal">Update Books</h1>
       <div class="alert alert-info" id="statusMsg">
         Update Books Data..
