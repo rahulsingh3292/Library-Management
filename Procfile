@@ -1,1 +1,1 @@
-web: gunicorn LibraryManagement.wsgi
+web: waitress-serve --port=$PORT LibraryManagement.wsgi:application 
